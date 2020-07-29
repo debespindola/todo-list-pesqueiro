@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import Logo from './images/pesqueiro.jpg';
+import LogoImg from './images/pesqueiro.jpg';
 
+import {
+  Container,
+  Header,
+  Logo,
+  Section,
+  Form,
+  Input,
+  CreateButton,
+  CompletedButton,
+  List,
+  Task,
+  Item,
+} from './style';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
@@ -45,39 +57,35 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="header-logo">
-        <h1></h1>
-        <img className="logo" src={Logo} alt=""/>
-      </header>
+    <Container>
+      <Header>
+        <Logo src={LogoImg} alt=""/>
+      </Header>
 
-      <section className="input-section">
-        <form className="to-do-container" onSubmit={createTask}>
-          <input 
-            className="to-do-input" 
+      <Section>
+        <Form onSubmit={createTask}>
+          <Input 
             type="text" 
             placeholder="TAREFA" 
             value={inputValue}
             onChange={(event) => setInputValue(event.target.value)}
             />
-          </form>
-      </section>
+            <CreateButton type="Submit"> &#10010; </CreateButton>
+          </Form>
+      </Section>
 
-      <section className="tasks-checklist">
-        <ul className="task-list">
+      <Section>
+        <List>
           {tasks.map((task) => 
-            <div className="task-item" key={task.id}>
-              <li 
-                className="task-text" 
-                >{task.task.toUpperCase()}
-              </li>
+            <Task key={task.id}>
+              <Item> {task.task.toUpperCase()} </Item>
 
-              <button className="task-completed-button" onClick={() => deleteTask(task.id)}> &#10003; </button>
-            </div>
+              <CompletedButton onClick={() => deleteTask(task.id)}> &#10003; </CompletedButton>
+            </Task>
           )}
-        </ul>
-      </section>
-    </div>
+        </List>
+      </Section>
+    </Container>
   );
 }
 
